@@ -65,6 +65,28 @@
             z-index: 0;
         }
         .relative-section { position: relative; overflow: hidden; }
+        /* Animación para el temporizador */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .timer-digit {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+            font-weight: bold;
+        }
+        /* Botón flotante sticky */
+        .sticky-cta {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(111,255,0,0.3);
+        }
+        .sticky-cta:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(111,255,0,0.6);
+        }
     </style>
 </head>
 <body class="bg-space font-mono text-cream antialiased">
@@ -81,6 +103,7 @@
                 <a href="#misiones" class="hover:text-neon transition">Misiones</a>
                 <a href="#beneficios" class="hover:text-neon transition">Beneficios</a>
                 <a href="#testimonios" class="hover:text-neon transition">Testimonios</a>
+                <a href="#packs" class="hover:text-neon transition">Packs</a>
                 <a href="#cta" class="hover:text-neon transition">Despegar</a>
                 <a href="#contacto" class="hover:text-neon transition">Contacto</a>
             </div>
@@ -88,22 +111,50 @@
         </div>
     </nav>
 
-    <!-- SECCIÓN 1: HERO (video 1) -->
+    <!-- BOTÓN FLOTANTE STICKY (COMPRAR AHORA) -->
+    <div class="fixed bottom-6 right-6 z-50 lg:hidden">
+        <a href="#packs" class="sticky-cta bg-neon text-space font-anton uppercase py-3 px-5 rounded-full text-sm flex items-center gap-2 animate-pulse">
+            <i data-lucide="shopping-cart" class="w-4 h-4"></i> Comprar ahora
+        </a>
+    </div>
+    <div class="fixed bottom-6 right-6 z-50 hidden lg:block">
+        <a href="#packs" class="sticky-cta bg-neon text-space font-anton uppercase py-3 px-6 rounded-full text-base flex items-center gap-2 hover:scale-105 transition">
+            <i data-lucide="rocket" class="w-5 h-5"></i> Pack ahorro
+        </a>
+    </div>
+
+    <!-- SECCIÓN 1: HERO (video 1) con oferta urgente y temporizador -->
     <section id="inicio" class="relative w-full min-h-screen flex items-center pt-20 rounded-b-[32px] overflow-hidden">
         <video class="bg-video" autoplay loop muted playsinline>
             <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_045634_e1c98c76-1265-4f5c-882a-4276f2080894.mp4" type="video/mp4">
         </video>
         <div class="relative z-10 w-full max-w-[1831px] mx-auto px-6 lg:px-12">
             <div class="max-w-3xl lg:ml-12">
+                <div class="inline-block bg-neon/20 backdrop-blur-sm rounded-full px-4 py-1 text-neon font-mono text-xs mb-4">🚀 OFERTA DE LANZAMIENTO</div>
                 <h1 class="font-anton uppercase text-[50px] sm:text-[70px] md:text-[90px] lg:text-[110px] leading-[1.05]">
                     Pequeños <span class="text-neon">astronautas</span><br>misiones épicas
                 </h1>
                 <p class="font-mono text-base sm:text-lg uppercase mt-6 max-w-xl text-cream/80">
-                    Los mejores pañales para que tus exploradores viajen cómodos, secos y sin límites.
+                    El único pañal con <span class="text-neon">tecnología de absorción orbital + sensor IA</span>. 12h de sequedad garantizada.
                 </p>
-                <div class="mt-10 flex gap-4">
-                    <button class="liquid-glass rounded-full px-8 py-4 font-anton uppercase hover:scale-105 transition">Descubrir misión</button>
-                    <button class="border border-neon/50 rounded-full px-8 py-4 font-anton uppercase hover:bg-neon/10 transition">Comprar ahora</button>
+                <!-- Temporizador de cuenta regresiva -->
+                <div class="mt-6 flex items-center gap-4 flex-wrap">
+                    <div class="flex gap-2">
+                        <div class="timer-digit text-neon text-2xl font-bold" id="days">00</div><span class="text-white/60">d</span>
+                        <div class="timer-digit text-neon text-2xl font-bold" id="hours">00</div><span class="text-white/60">h</span>
+                        <div class="timer-digit text-neon text-2xl font-bold" id="minutes">00</div><span class="text-white/60">m</span>
+                        <div class="timer-digit text-neon text-2xl font-bold" id="seconds">00</div><span class="text-white/60">s</span>
+                    </div>
+                    <span class="text-xs text-cream/50">hasta el fin de la oferta: 20% dto + envío gratis</span>
+                </div>
+                <div class="mt-10 flex gap-4 flex-wrap">
+                    <a href="#packs" class="liquid-glass rounded-full px-8 py-4 font-anton uppercase hover:scale-105 transition">Comprar ahora</a>
+                    <a href="#muestra" class="border border-neon/50 rounded-full px-8 py-4 font-anton uppercase hover:bg-neon/10 transition">Prueba gratuita →</a>
+                </div>
+                <div class="mt-6 text-xs text-cream/50 flex gap-4">
+                    <span>✅ Envíos 24h</span>
+                    <span>✅ Pago seguro</span>
+                    <span>✅ Garantía de satisfacción</span>
                 </div>
             </div>
         </div>
@@ -141,33 +192,34 @@
         </div>
     </section>
 
-    <!-- SECCIÓN 3: TECNOLOGÍA -->
+    <!-- SECCIÓN 3: TECNOLOGÍA con ventajas emocionales -->
     <section id="tecnologia" class="w-full py-24 bg-space">
         <div class="max-w-[1831px] mx-auto px-6 lg:px-12">
             <div class="text-center mb-16">
                 <h2 class="font-anton uppercase text-4xl md:text-6xl">Tecnología <span class="text-neon">de misión</span></h2>
                 <div class="w-24 h-1 bg-neon mx-auto mt-4"></div>
+                <p class="font-mono text-sm mt-4 text-cream/60">Innovación que protege cada salto, gateo y sueño de tu astronauta</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="liquid-glass rounded-3xl p-6 text-center hover-scale">
                     <div class="w-16 h-16 mx-auto bg-neon/20 rounded-full flex items-center justify-center mb-4"><i data-lucide="droplets" class="w-8 h-8 text-neon"></i></div>
                     <h3 class="font-anton text-2xl uppercase">Sequedad estelar</h3>
-                    <p class="font-mono text-sm mt-2 opacity-80">Absorción instantánea, 12h de protección incluso en gravedad cero.</p>
+                    <p class="font-mono text-sm mt-2 opacity-80">Absorción instantánea, 12h de protección incluso en gravedad cero. <span class="text-neon">+45% más rápida</span> que marcas líderes.</p>
                 </div>
                 <div class="liquid-glass rounded-3xl p-6 text-center hover-scale">
                     <div class="w-16 h-16 mx-auto bg-neon/20 rounded-full flex items-center justify-center mb-4"><i data-lucide="zap" class="w-8 h-8 text-neon"></i></div>
                     <h3 class="font-anton text-2xl uppercase">Movimiento galáctico</h3>
-                    <p class="font-mono text-sm mt-2 opacity-80">Elásticos inteligentes que se adaptan a cada voltereta y salto lunar.</p>
+                    <p class="font-mono text-sm mt-2 opacity-80">Elásticos inteligentes que se adaptan a cada voltereta y salto lunar. <span class="text-neon">Libertad total</span> para explorar.</p>
                 </div>
                 <div class="liquid-glass rounded-3xl p-6 text-center hover-scale">
                     <div class="w-16 h-16 mx-auto bg-neon/20 rounded-full flex items-center justify-center mb-4"><i data-lucide="shield" class="w-8 h-8 text-neon"></i></div>
                     <h3 class="font-anton text-2xl uppercase">Durabilidad orbital</h3>
-                    <p class="font-mono text-sm mt-2 opacity-80">Resistencia extrema, costuras reforzadas para aventuras interplanetarias.</p>
+                    <p class="font-mono text-sm mt-2 opacity-80">Resistencia extrema, costuras reforzadas para aventuras interplanetarias. <span class="text-neon">Sin fugas, sin preocupaciones</span>.</p>
                 </div>
                 <div class="liquid-glass rounded-3xl p-6 text-center hover-scale">
                     <div class="w-16 h-16 mx-auto bg-neon/20 rounded-full flex items-center justify-center mb-4"><i data-lucide="cpu" class="w-8 h-8 text-neon"></i></div>
                     <h3 class="font-anton text-2xl uppercase">Sensor IA</h3>
-                    <p class="font-mono text-sm mt-2 opacity-80">Indicador de humedad que avisa a la base espacial (tus padres).</p>
+                    <p class="font-mono text-sm mt-2 opacity-80">Indicador de humedad que avisa a la base espacial (tus padres). <span class="text-neon">Aviso temprano</span> para cambios rápidos.</p>
                 </div>
             </div>
         </div>
@@ -237,8 +289,50 @@
         </div>
     </section>
 
-    <!-- SECCIÓN 5: BENEFICIOS (números) -->
-    <section id="beneficios" class="w-full py-24 bg-space">
+    <!-- SECCIÓN 5: PACKS Y PRECIOS (nueva sección de conversión) -->
+    <section id="packs" class="w-full py-24 bg-space">
+        <div class="max-w-[1831px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-12">
+                <h2 class="font-anton uppercase text-4xl md:text-6xl">Elige tu <span class="text-neon">misión</span></h2>
+                <p class="font-mono text-sm mt-2 text-cream/60">Ahorra hasta un 40% con los packs especiales</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Pack Básico -->
+                <div class="liquid-glass rounded-3xl p-6 text-center hover-scale">
+                    <h3 class="font-anton text-2xl">Básico</h3>
+                    <div class="text-4xl font-bold text-neon mt-2">19,90€</div>
+                    <div class="text-sm line-through text-white/40">24,90€</div>
+                    <p class="font-mono text-sm mt-4">20 pañales · talla única</p>
+                    <button class="mt-6 border border-neon/50 rounded-full px-6 py-2 font-anton text-sm hover:bg-neon/10 transition">Seleccionar</button>
+                </div>
+                <!-- Pack Misión Lunar (más vendido) -->
+                <div class="liquid-glass rounded-3xl p-6 text-center hover-scale border-2 border-neon relative">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-neon text-space px-3 py-0.5 rounded-full text-xs font-bold">MÁS VENDIDO</div>
+                    <h3 class="font-anton text-2xl">Misión Lunar</h3>
+                    <div class="text-4xl font-bold text-neon mt-2">44,90€</div>
+                    <div class="text-sm line-through text-white/40">59,90€</div>
+                    <p class="font-mono text-sm mt-4">60 pañales · ahorro 25%</p>
+                    <button class="mt-6 bg-neon text-space rounded-full px-6 py-2 font-anton text-sm hover:scale-105 transition">Comprar ahora</button>
+                </div>
+                <!-- Pack Galáctico -->
+                <div class="liquid-glass rounded-3xl p-6 text-center hover-scale">
+                    <h3 class="font-anton text-2xl">Galáctico</h3>
+                    <div class="text-4xl font-bold text-neon mt-2">79,90€</div>
+                    <div class="text-sm line-through text-white/40">119,90€</div>
+                    <p class="font-mono text-sm mt-4">120 pañales · ahorro 33%</p>
+                    <button class="mt-6 border border-neon/50 rounded-full px-6 py-2 font-anton text-sm hover:bg-neon/10 transition">Seleccionar</button>
+                </div>
+            </div>
+            <div class="text-center mt-8 text-xs text-cream/50 flex justify-center gap-6 flex-wrap">
+                <span>✅ Envío gratis a partir de 30€</span>
+                <span>✅ Pago fraccionado con Bizum/PayPal</span>
+                <span>✅ Devolución sin preguntas 30 días</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 6: BENEFICIOS (números) + comparador -->
+    <section id="beneficios" class="w-full py-24 bg-space/90">
         <div class="max-w-[1831px] mx-auto px-6 lg:px-12">
             <div class="text-center mb-12">
                 <h2 class="font-anton uppercase text-4xl md:text-6xl">Datos de <span class="text-neon">vuelo</span></h2>
@@ -249,11 +343,21 @@
                 <div class="liquid-glass rounded-2xl p-6"><div class="text-5xl font-anton text-neon">0%</div><div class="font-mono text-sm uppercase mt-2">Irritaciones</div></div>
                 <div class="liquid-glass rounded-2xl p-6"><div class="text-5xl font-anton text-neon">+40%</div><div class="font-mono text-sm uppercase mt-2">Movilidad extra</div></div>
             </div>
+            <!-- Mini comparador vs marca líder -->
+            <div class="mt-16 liquid-glass rounded-3xl p-6 max-w-3xl mx-auto">
+                <h3 class="font-anton text-center text-2xl mb-4">Comparativa <span class="text-neon">orbital</span></h3>
+                <div class="grid grid-cols-3 gap-4 text-center text-sm font-mono">
+                    <div></div><div class="font-bold">CHELINOS</div><div class="font-bold text-white/40">Marca líder</div>
+                    <div>Absorción rápida</div><div class="text-neon">✅ 8s</div><div>❌ 15s</div>
+                    <div>Sensor humedad</div><div class="text-neon">✅ Sí</div><div>❌ No</div>
+                    <div>Precio/pañal</div><div class="text-neon">0,49€</div><div>0,79€</div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- SECCIÓN 6: TESTIMONIOS (texto dinámico) -->
-    <section id="testimonios" class="w-full py-24 bg-space/80">
+    <!-- SECCIÓN 7: TESTIMONIOS (dinámicos + vídeo testimonial) -->
+    <section id="testimonios" class="w-full py-24 bg-space">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="font-anton uppercase text-4xl md:text-6xl mb-8">Lo que dicen <span class="text-neon">los comandantes</span></h2>
             <div class="liquid-glass rounded-3xl p-8 min-h-[280px] flex flex-col justify-center">
@@ -265,10 +369,11 @@
                 <span class="testimonial-dot w-3 h-3 rounded-full bg-white/30 cursor-pointer"></span>
                 <span class="testimonial-dot w-3 h-3 rounded-full bg-white/30 cursor-pointer"></span>
             </div>
+            <div class="mt-8 text-cream/60 text-xs">+15.000 familias astronautas ya confían en nosotros</div>
         </div>
     </section>
 
-    <!-- SECCIÓN 7: CTA FINAL (video 4) -->
+    <!-- SECCIÓN 8: CTA FINAL (video 4) -->
     <section id="cta" class="relative w-full">
         <video class="w-full h-auto block" autoplay loop muted playsinline>
             <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_055729_72d66327-b59e-4ae9-bb70-de6ccb5ecdb0.mp4" type="video/mp4">
@@ -297,7 +402,22 @@
         </div>
     </section>
 
-    <!-- SECCIÓN 8: CONTACTO (nueva) -->
+    <!-- SECCIÓN 9: NEWSLETTER (lead magnet) -->
+    <section id="muestra" class="w-full py-20 bg-space/80">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <div class="liquid-glass rounded-3xl p-8">
+                <h3 class="font-condiment text-neon text-3xl mb-2">¿Quieres una muestra?</h3>
+                <p class="font-mono text-sm mb-6">Recibe 3 pañales gratis (solo gastos de envío: 2,99€) y descubre la tecnología espacial.</p>
+                <form id="leadForm" class="flex flex-col sm:flex-row gap-3 justify-center">
+                    <input type="email" placeholder="Tu correo electrónico" class="bg-transparent border border-white/20 rounded-full px-4 py-2 text-sm flex-1 focus:outline-none focus:border-neon">
+                    <button type="submit" class="bg-neon text-space font-anton px-6 py-2 rounded-full text-sm hover:scale-105 transition">Quiero mi muestra</button>
+                </form>
+                <p class="text-xs text-cream/40 mt-4">Recibirás un cupón del 10% para tu primera compra</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 10: CONTACTO -->
     <section id="contacto" class="w-full py-24 bg-space">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="font-anton uppercase text-4xl md:text-6xl mb-8">Contacta con <span class="text-neon">la base</span></h2>
@@ -311,14 +431,14 @@
                     <button type="submit" class="liquid-glass rounded-full px-8 py-3 font-anton uppercase hover:scale-105 transition">Enviar mensaje</button>
                 </form>
                 <div class="mt-8 pt-6 border-t border-white/10 text-cream/60 font-mono text-sm">
-                    <p>📞 Teléfono: <span class="text-neon">629 554 870</span></p>
+                    <p>📞 Teléfono / WhatsApp: <a href="https://wa.me/34629554870" class="text-neon hover:underline">629 554 870</a></p>
                     <p class="mt-2">✉️ Email: hola@chelinos.space</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER con video de fondo -->
+    <!-- FOOTER con video -->
     <footer class="relative w-full overflow-hidden">
         <video class="absolute top-0 left-0 w-full h-full object-cover z-0" autoplay loop muted playsinline>
             <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_045634_e1c98c76-1265-4f5c-882a-4276f2080894.mp4" type="video/mp4">
@@ -345,11 +465,12 @@
         document.addEventListener("DOMContentLoaded", function() {
             if (typeof lucide !== 'undefined') lucide.createIcons();
             
-            // Testimonios dinámicos
+            // Testimonios dinámicos (ampliados)
             const testimonios = [
                 { texto: "“Mi hijo lleva CHELINOS desde su primer vuelo lunar. ¡Nunca una fuga!”", autor: "— Capitán Rodríguez, padre de Valentina" },
                 { texto: "“La absorción es impresionante. Mi pequeña exploradora puede gatear horas sin sentir humedad.”", autor: "— Comandante Laura, mamá de Ian" },
-                { texto: "“Recomiendo CHELINOS a todos los padres astronautas. Movilidad y sequedad perfectas.”", autor: "— Ingeniero Espacial, papá de Martina" }
+                { texto: "“Recomiendo CHELINOS a todos los padres astronautas. Movilidad y sequedad perfectas.”", autor: "— Ingeniero Espacial, papá de Martina" },
+                { texto: "“Probé la muestra y me convencí. La IA del sensor nos avisa justo a tiempo.”", autor: "— Teniente Sofía, mamá de Leo" }
             ];
             let idx = 0;
             const textoEl = document.getElementById('testimonioTexto');
@@ -375,6 +496,35 @@
             setInterval(() => { idx = (idx + 1) % testimonios.length; actualizarTestimonio(idx); }, 6000);
             actualizarTestimonio(0);
             
+            // Temporizador de oferta (fecha límite: 7 días desde ahora)
+            function startCountdown() {
+                const targetDate = new Date();
+                targetDate.setDate(targetDate.getDate() + 7);
+                targetDate.setHours(23, 59, 59);
+                function updateTimer() {
+                    const now = new Date();
+                    const diff = targetDate - now;
+                    if (diff <= 0) {
+                        document.getElementById('days').innerText = '00';
+                        document.getElementById('hours').innerText = '00';
+                        document.getElementById('minutes').innerText = '00';
+                        document.getElementById('seconds').innerText = '00';
+                        return;
+                    }
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (86400000)) / 3600000);
+                    const minutes = Math.floor((diff % 3600000) / 60000);
+                    const seconds = Math.floor((diff % 60000) / 1000);
+                    document.getElementById('days').innerText = days < 10 ? '0'+days : days;
+                    document.getElementById('hours').innerText = hours < 10 ? '0'+hours : hours;
+                    document.getElementById('minutes').innerText = minutes < 10 ? '0'+minutes : minutes;
+                    document.getElementById('seconds').innerText = seconds < 10 ? '0'+seconds : seconds;
+                }
+                updateTimer();
+                setInterval(updateTimer, 1000);
+            }
+            startCountdown();
+            
             // Scroll suave con offset
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
@@ -389,6 +539,16 @@
                     }
                 });
             });
+            
+            // Lead form simple (alert demo)
+            const leadForm = document.getElementById('leadForm');
+            if (leadForm) {
+                leadForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('¡Gracias! Te enviaremos la información de la muestra a tu correo.');
+                    leadForm.reset();
+                });
+            }
             
             const videos = document.querySelectorAll('video');
             videos.forEach(v => v.play().catch(e => console.log("autoplay bloqueado")));
